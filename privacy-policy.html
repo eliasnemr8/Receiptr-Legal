@@ -103,15 +103,21 @@
     <p>If you use the AI Budget Setup feature, the financial information you provide (income, city, household details, spending habits) is transmitted over an encrypted connection to Anthropic's API to generate a personalized budget recommendation. This information is not stored on Anthropic's servers after your budget is generated. The resulting budget is stored locally on your device and synced to your iCloud account. You are not required to use the AI Budget Setup feature — you can set your budget manually at any time.</p>
 
     <h2>6. Data Storage and Sync</h2>
-    <p><strong>Registered users:</strong> Your financial data is stored on your device using local storage and is automatically synced to your personal Apple iCloud account. This iCloud data is stored in your own Apple account — Receiptr does not have access to read, modify, or delete your iCloud data. Your data persists in iCloud even if you log out of Receiptr or delete the app. If you reinstall the app and log in, your data will be restored from iCloud.</p>
-    <p><strong>Guest users:</strong> Guest data is stored only on your local device and is not synced to iCloud. If you delete the app, clear app storage, or lose your device, your guest data cannot be recovered. We strongly recommend creating a free account to protect your data.</p>
-    <p>We do not operate servers that store your financial transaction data. Your financial data lives in your iCloud account and on your device — not on our infrastructure.</p>
+    <p><strong>Registered users:</strong> Your financial data is stored in two places:</p>
+    <ul>
+      <li><strong>Google Firebase / Firestore</strong> — your transaction data, budgets, savings goals, and app settings are securely stored in Google Firebase's Firestore database, tied to your unique account ID. This allows your data to sync across any device you log into. Firebase data is encrypted at rest and in transit.</li>
+      <li><strong>Your device</strong> — data is also cached locally using AsyncStorage for fast, offline access.</li>
+      <li><strong>Apple iCloud</strong> — an additional backup of your data is stored in your personal iCloud account on iOS devices.</li>
+    </ul>
+    <p>Your data is associated with your Firebase account UID, not your name or email directly. Only you can access your data — Firestore security rules ensure no user can read or write another user's data.</p>
+    <p><strong>Guest users:</strong> Guest data is stored only on your local device and is not synced to Firebase or iCloud. If you delete the app, clear app storage, or lose your device, your guest data cannot be recovered. We strongly recommend creating a free account to protect your data.</p>
 
     <h2>7. Data Sharing and Third Parties</h2>
-    <p>We do not sell, rent, trade, or otherwise share your personal information with any third party for their own purposes. The only third party that receives any portion of your data is:</p>
+    <p>We do not sell, rent, trade, or otherwise share your personal information with any third party for their own purposes. The third parties that receive portions of your data are:</p>
     <ul>
-      <li><strong>Anthropic</strong> — receipt images and budget setup information are sent to Anthropic's API for AI processing only. This data is not retained by Anthropic beyond the processing request.</li>
-      <li><strong>Apple / iCloud</strong> — your data is synced through Apple's iCloud infrastructure under Apple's own privacy policies. Apple's privacy policy is available at <a href="https://apple.com/privacy" target="_blank">apple.com/privacy</a>.</li>
+      <li><strong>Google Firebase</strong> — your account authentication is handled by Firebase Authentication, and your app data (transactions, budgets, savings) is stored in Firebase Firestore. Firebase is operated by Google and is subject to <a href="https://firebase.google.com/terms" target="_blank">Google's Firebase Terms of Service</a> and <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>. Google does not use your Receiptr data for advertising purposes.</li>
+      <li><strong>Anthropic</strong> — receipt images and budget setup information are sent to Anthropic's API for AI processing only. This data is not retained by Anthropic beyond the processing request. Subject to <a href="https://anthropic.com/privacy" target="_blank">Anthropic's Privacy Policy</a>.</li>
+      <li><strong>Apple / iCloud</strong> — your data is additionally backed up through Apple's iCloud infrastructure. Subject to <a href="https://apple.com/privacy" target="_blank">Apple's Privacy Policy</a>.</li>
     </ul>
     <p>We do not use any advertising networks, analytics services, or tracking SDKs in Receiptr. There are no ads in Receiptr.</p>
 
@@ -121,7 +127,7 @@
     <p>While we take reasonable security measures, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security of your data.</p>
 
     <h2>9. Data Retention</h2>
-    <p><strong>Registered users:</strong> Your data is retained in your iCloud account until you explicitly delete it. Logging out of Receiptr clears your local device data only — your iCloud backup is preserved. To permanently delete all your Receiptr data from iCloud, go to iPhone Settings → [Your Name] → iCloud → Manage Account Storage → Receiptr → Delete Data.</p>
+    <p><strong>Registered users:</strong> Your data is retained in Firebase Firestore and your iCloud account until you explicitly delete your account or request data deletion. Logging out of Receiptr clears your local device data only — your Firebase and iCloud data is preserved. To request permanent deletion of all your data from Firebase, contact us at <a href='mailto:eliasnemr7@gmail.com'>eliasnemr7@gmail.com</a>. To delete your iCloud backup, go to iPhone Settings → [Your Name] → iCloud → Manage Account Storage → Receiptr → Delete Data.</p>
     <p><strong>Guest users:</strong> Data is retained on your device until you delete the app, clear app data, or replace your device.</p>
     <p>You can delete all local transaction data at any time through the app: Settings → Clear All Transactions.</p>
 
